@@ -1,2 +1,0 @@
-# multiple-select
-Multiple Select
