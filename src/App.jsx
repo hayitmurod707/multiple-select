@@ -12,7 +12,7 @@ const App = () => {
 	const [value, setValue] = useState([]);
 	return (
 		<div style={{ width: '300px' }}>
-			<MultipleSelect value={value} options={options} onChange={setValue} />
+			<MultipleSelect onChange={setValue} options={options} value={value} />
 		</div>
 	);
 };

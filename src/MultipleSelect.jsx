@@ -1,6 +1,66 @@
-import { array, func } from 'prop-types';
+import { array, func, number, shape, string } from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
+import styled from 'styled-components';
+// white color #ffffff
+// multiValue color rgb(239, 240, 243)
+// remove color #ff0000
+// text color #000000
+// placeholder color #808080
+// active color #0000ff
+const StyledMultiValue = styled.div`
+	align-items: center;
+	background-color: rgb(239, 240, 243);
+	border-radius: 8px;
+	display: flex;
+	height: 100%;
+	margin: 0 5px 0 0;
+	padding: 0 5px;
+	&[data-last='last'] {
+		margin: 0;
+	}
+	& .label {
+		font-size: 16px;
+		font-weight: 600;
+		margin: 0 6px 0 0;
+		white-space: nowrap;
+	}
+	& .remove {
+		align-items: center;
+		background-color: #ff0000;
+		border-radius: 10px;
+		display: flex;
+		height: 19px;
+		justify-content: center;
+		width: 19px;
+	}
+`;
+const MultiValue = ({
+	data: { label },
+	removeProps: { onClick },
+	getValue,
+	index,
+}) => (
+	<StyledMultiValue data-last={getValue().length === index + 1 ? 'last' : ''}>
+		<div className="label">{label}</div>
+		<div className="remove" onClick={onClick}>
+			<svg fill="#ffffff" height="14" width="14" viewBox="0 0 20 20">
+				<path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"></path>
+			</svg>
+		</div>
+	</StyledMultiValue>
+);
+MultiValue.defaultProps = {
+	data: { label: '' },
+	index: 0,
+};
+MultiValue.propTypes = {
+	data: shape({ label: string }),
+	getValue: func,
+	index: number,
+	removeProps: shape({ onClick: func }),
+};
+const IndicatorSeparator = () => null;
 const defaultOptions = {
 	isMulti: true,
 	isSearchable: false,
@@ -12,8 +72,9 @@ const defaultOptions = {
 			backgroundColor: isDisabled ? '#808080' : '#fffff',
 			color: isDisabled ? '#000000' : '#000000',
 			cursor: isDisabled ? 'not-allowed' : 'pointer',
-			fontSize: 15,
+			fontSize: 16,
 			height: 48,
+			fontWeight: 600,
 			overflow: 'hidden',
 			padding: '15px 16px',
 			textOverflow: 'ellipsis',
@@ -55,52 +116,79 @@ const defaultOptions = {
 			...styles,
 			padding: 0,
 			'::-webkit-scrollbar': {
-				width: 7,
+				width: 6,
 			},
 			'::-webkit-scrollbar-track': {
 				backgroundColor: 'transparent',
 			},
 			'::-webkit-scrollbar-thumb': {
 				backgroundColor: '#0000ff',
-				borderRadius: 4,
+				borderRadius: 3,
 			},
 		}),
 		valueContainer: styles => ({
 			...styles,
 			display: 'flex',
-			flexWrap: 'nowrap',
-			fontSize: 15,
-			height: 48,
-			overflow: 'scroll',
-			padding: '4px 5px',
-			width: 'calc(100% - 66px)',
 			flex: 'initial',
+			flexWrap: 'nowrap',
+			height: 46,
+			overflow: 'auto',
+			padding: '5px 0 5px 5px',
+			width: 'calc(100% - 66px)',
+			'::-webkit-scrollbar': {
+				height: 4,
+			},
+			'::-webkit-scrollbar-track': {
+				backgroundColor: 'transparent',
+			},
+			'::-webkit-scrollbar-thumb': {
+				backgroundColor: '#0000ff',
+				borderRadius: 2,
+			},
+		}),
+		noOptionsMessage: styles => ({
+			...styles,
+			color: '#000000',
+			cursor: 'not-allowed',
+			fontSize: 15,
+			fontWeight: 600,
+			height: 48,
+			padding: '15px 16px',
+			textAlign: 'left',
+			width: '100%',
 		}),
 		multiValue: styles => ({
 			...styles,
 			flexWrap: 'nowrap',
 		}),
+		placeholder: styles => ({
+			...styles,
+			color: '#808080',
+			fontSize: 16,
+			fontWeight: 600,
+			margin: '0 0 0 8px',
+		}),
 		indicatorsContainer: styles => ({
 			...styles,
+			justifyContent: 'flex-end',
 			padding: '0 8px',
 			width: 66,
-			justifyContent: 'flex-end',
 		}),
 		dropdownIndicator: (styles, { selectProps: { menuIsOpen } }) => ({
 			...styles,
 			alignItems: 'center',
-			color: '#ffffff',
 			backgroundColor: '#0000ff',
+			borderRadius: 11,
+			color: '#ffffff',
 			display: 'flex',
 			height: 22,
+			justifyContent: 'center',
 			margin: 0,
 			padding: 0,
 			transform: `rotate(${menuIsOpen ? '180deg' : '0'})`,
 			transformOrigin: 'center',
-			justifyContent: 'center',
 			transition: '0.4s transform',
 			width: 22,
-			borderRadius: 11,
 			svg: {
 				width: 16,
 			},
@@ -111,14 +199,14 @@ const defaultOptions = {
 		clearIndicator: styles => ({
 			...styles,
 			alignItems: 'center',
+			backgroundColor: '#ff0000',
+			borderRadius: 11,
 			color: '#ffffff',
-			backgroundColor: '#0000ff',
 			display: 'flex',
 			height: 22,
+			justifyContent: 'center',
 			margin: '0 6px 0 0',
 			padding: 0,
-			justifyContent: 'center',
-			borderRadius: 11,
 			width: 22,
 			svg: {
 				width: 16,
@@ -129,25 +217,24 @@ const defaultOptions = {
 		}),
 	},
 };
-const MultipleSelect = props => {
-	const NoOptionsMessage = () => 'No options';
-	const IndicatorSeparator = () => null;
-	return (
-		<Select
-			{...defaultOptions}
-			{...props}
-			placeholder="Select options"
-			components={{ NoOptionsMessage, IndicatorSeparator }}
-		/>
-	);
-};
+const MultipleSelect = props => (
+	<Select
+		{...defaultOptions}
+		{...props}
+		components={{ IndicatorSeparator, MultiValue }}
+	/>
+);
 MultipleSelect.defaultProps = {
+	noOptionsMessage: () => 'No options',
+	options: [],
+	placeholder: 'Select options',
 	value: [],
-	array: [],
 };
 MultipleSelect.propTypes = {
-	value: array,
-	options: array,
+	noOptionsMessage: func,
 	onChange: func.isRequired,
+	options: array,
+	placeholder: string,
+	value: array,
 };
 export default MultipleSelect;
