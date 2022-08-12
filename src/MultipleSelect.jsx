@@ -27,12 +27,15 @@ const StyledMultiValue = styled.div`
 	}
 	& .remove {
 		align-items: center;
-		background-color: #ff0000;
+		background-color: rgb(255, 0, 0, 0.7);
 		border-radius: 10px;
 		display: flex;
 		height: 19px;
 		justify-content: center;
 		width: 19px;
+		&:hover {
+			background-color: rgb(255, 0, 0);
+		}
 	}
 `;
 const MultiValue = ({
@@ -199,7 +202,7 @@ const defaultOptions = {
 		clearIndicator: styles => ({
 			...styles,
 			alignItems: 'center',
-			backgroundColor: '#ff0000',
+			backgroundColor: 'rgb(255, 0, 0, 0.7)',
 			borderRadius: 11,
 			color: '#ffffff',
 			display: 'flex',
@@ -209,10 +212,11 @@ const defaultOptions = {
 			padding: 0,
 			width: 22,
 			svg: {
-				width: 16,
+				width: 15,
 			},
 			':hover': {
 				color: '#ffffff',
+				backgroundColor: 'rgb(255, 0, 0)',
 			},
 		}),
 	},
