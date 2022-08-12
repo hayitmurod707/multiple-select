@@ -1,13 +1,13 @@
 import { array, func, number, shape, string } from 'prop-types';
 import React from 'react';
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import styled from 'styled-components';
-// white color #ffffff
+// active color #0000ff
 // multiValue color rgb(239, 240, 243)
+// placeholder color #808080
 // remove color #ff0000
 // text color #000000
-// placeholder color #808080
-// active color #0000ff
+// white color #ffffff
 const StyledMultiValue = styled.div`
 	align-items: center;
 	background-color: rgb(239, 240, 243);
@@ -27,7 +27,7 @@ const StyledMultiValue = styled.div`
 	}
 	& .remove {
 		align-items: center;
-		background-color: rgb(255, 0, 0, 0.7);
+		background-color: rgba(255, 0, 0, 0.7);
 		border-radius: 10px;
 		display: flex;
 		height: 19px;
@@ -70,24 +70,6 @@ const defaultOptions = {
 	maxMenuHeight: 240,
 	menuPlacement: 'auto',
 	styles: {
-		option: (styles, { isDisabled }) => ({
-			...styles,
-			backgroundColor: isDisabled ? '#808080' : '#fffff',
-			color: isDisabled ? '#000000' : '#000000',
-			cursor: isDisabled ? 'not-allowed' : 'pointer',
-			fontSize: 16,
-			height: 48,
-			fontWeight: 600,
-			overflow: 'hidden',
-			padding: '15px 16px',
-			textOverflow: 'ellipsis',
-			whiteSpace: 'nowrap',
-			width: '100%',
-			':hover': {
-				backgroundColor: isDisabled ? '#808080' : '#0000ff',
-				color: isDisabled ? '#000000' : '#ffffff',
-			},
-		}),
 		control: styles => ({
 			...styles,
 			backgroundColor: '#ffffff',
@@ -103,6 +85,33 @@ const defaultOptions = {
 			width: '100%',
 			':hover': {
 				border: '1px solid #e2e4ea',
+			},
+		}),
+		placeholder: styles => ({
+			...styles,
+			color: '#808080',
+			fontSize: 16,
+			fontWeight: 600,
+			margin: '0 0 0 8px',
+		}),
+		valueContainer: styles => ({
+			...styles,
+			display: 'flex',
+			flex: 'initial',
+			flexWrap: 'nowrap',
+			height: 46,
+			overflow: 'auto',
+			padding: '5px 0 5px 5px',
+			width: 'calc(100% - 66px)',
+			'::-webkit-scrollbar': {
+				height: 4,
+			},
+			'::-webkit-scrollbar-track': {
+				backgroundColor: 'transparent',
+			},
+			'::-webkit-scrollbar-thumb': {
+				backgroundColor: '#0000ff',
+				borderRadius: 2,
 			},
 		}),
 		menu: styles => ({
@@ -129,24 +138,22 @@ const defaultOptions = {
 				borderRadius: 3,
 			},
 		}),
-		valueContainer: styles => ({
+		option: (styles, { isDisabled }) => ({
 			...styles,
-			display: 'flex',
-			flex: 'initial',
-			flexWrap: 'nowrap',
-			height: 46,
-			overflow: 'auto',
-			padding: '5px 0 5px 5px',
-			width: 'calc(100% - 66px)',
-			'::-webkit-scrollbar': {
-				height: 4,
-			},
-			'::-webkit-scrollbar-track': {
-				backgroundColor: 'transparent',
-			},
-			'::-webkit-scrollbar-thumb': {
-				backgroundColor: '#0000ff',
-				borderRadius: 2,
+			backgroundColor: isDisabled ? '#808080' : '#fffff',
+			color: isDisabled ? '#000000' : '#000000',
+			cursor: isDisabled ? 'not-allowed' : 'pointer',
+			fontSize: 16,
+			fontWeight: 600,
+			height: 48,
+			overflow: 'hidden',
+			padding: '15px 16px',
+			textOverflow: 'ellipsis',
+			whiteSpace: 'nowrap',
+			width: '100%',
+			':hover': {
+				backgroundColor: isDisabled ? '#808080' : '#0000ff',
+				color: isDisabled ? '#000000' : '#ffffff',
 			},
 		}),
 		noOptionsMessage: styles => ({
@@ -160,49 +167,16 @@ const defaultOptions = {
 			textAlign: 'left',
 			width: '100%',
 		}),
-		multiValue: styles => ({
-			...styles,
-			flexWrap: 'nowrap',
-		}),
-		placeholder: styles => ({
-			...styles,
-			color: '#808080',
-			fontSize: 16,
-			fontWeight: 600,
-			margin: '0 0 0 8px',
-		}),
 		indicatorsContainer: styles => ({
 			...styles,
 			justifyContent: 'flex-end',
 			padding: '0 8px',
 			width: 66,
 		}),
-		dropdownIndicator: (styles, { selectProps: { menuIsOpen } }) => ({
-			...styles,
-			alignItems: 'center',
-			backgroundColor: '#0000ff',
-			borderRadius: 11,
-			color: '#ffffff',
-			display: 'flex',
-			height: 22,
-			justifyContent: 'center',
-			margin: 0,
-			padding: 0,
-			transform: `rotate(${menuIsOpen ? '180deg' : '0'})`,
-			transformOrigin: 'center',
-			transition: '0.4s transform',
-			width: 22,
-			svg: {
-				width: 16,
-			},
-			':hover': {
-				color: '#ffffff',
-			},
-		}),
 		clearIndicator: styles => ({
 			...styles,
 			alignItems: 'center',
-			backgroundColor: 'rgb(255, 0, 0, 0.7)',
+			backgroundColor: 'rgba(255, 0, 0, 0.7)',
 			borderRadius: 11,
 			color: '#ffffff',
 			display: 'flex',
@@ -215,16 +189,38 @@ const defaultOptions = {
 				width: 15,
 			},
 			':hover': {
-				color: '#ffffff',
 				backgroundColor: 'rgb(255, 0, 0)',
+				color: '#ffffff',
+			},
+		}),
+		dropdownIndicator: (styles, { selectProps: { menuIsOpen } }) => ({
+			...styles,
+			alignItems: 'center',
+			backgroundColor: '#0000ff',
+			borderRadius: 11,
+			color: '#ffffff',
+			display: 'flex',
+			height: 22,
+			justifyContent: 'center',
+			margin: 0,
+			padding: 0,
+			transform: `rotate(${menuIsOpen ? '180deg' : 0})`,
+			transformOrigin: 'center',
+			transition: '0.4s transform',
+			width: 22,
+			svg: {
+				width: 16,
+			},
+			':hover': {
+				color: '#ffffff',
 			},
 		}),
 	},
 };
 const MultipleSelect = props => (
-	<Select
-		{...defaultOptions}
+	<ReactSelect
 		{...props}
+		{...defaultOptions}
 		components={{ IndicatorSeparator, MultiValue }}
 	/>
 );
