@@ -1,4 +1,4 @@
-import { array, func, number, shape, string } from 'prop-types';
+import { array, func, shape, string } from 'prop-types';
 import React from 'react';
 import ReactSelect from 'react-select';
 import styled from 'styled-components';
@@ -13,17 +13,17 @@ const StyledMultiValue = styled.div`
 	background-color: rgb(239, 240, 243);
 	border-radius: 8px;
 	display: flex;
-	height: 100%;
-	margin: 0 5px 0 0;
-	padding: 0 5px;
-	&[data-last='last'] {
-		margin: 0;
-	}
+	margin: 3px;
+	max-width: 100%;
+	min-height: 26px;
+	padding: 5px;
 	& .label {
 		font-size: 16px;
 		font-weight: 600;
+		line-height: 135%;
 		margin: 0 6px 0 0;
-		white-space: nowrap;
+		white-space: pre-wrap;
+		width: calc(100% - 25px);
 	}
 	& .remove {
 		align-items: center;
@@ -38,13 +38,8 @@ const StyledMultiValue = styled.div`
 		}
 	}
 `;
-const MultiValue = ({
-	data: { label },
-	removeProps: { onClick },
-	getValue,
-	index,
-}) => (
-	<StyledMultiValue data-last={getValue().length === index + 1 ? 'last' : ''}>
+const MultiValue = ({ data: { label }, removeProps: { onClick } }) => (
+	<StyledMultiValue>
 		<div className="label">{label}</div>
 		<div className="remove" onClick={onClick}>
 			<svg fill="#ffffff" height="14" width="14" viewBox="0 0 20 20">
@@ -55,12 +50,9 @@ const MultiValue = ({
 );
 MultiValue.defaultProps = {
 	data: { label: '' },
-	index: 0,
 };
 MultiValue.propTypes = {
 	data: shape({ label: string }),
-	getValue: func,
-	index: number,
 	removeProps: shape({ onClick: func }),
 };
 const IndicatorSeparator = () => null;
@@ -78,8 +70,7 @@ const defaultOptions = {
 			boxShadow: 'none',
 			color: '#000000',
 			cursor: 'pointer',
-			height: 48,
-			minWidth: 100,
+			minHeight: 48,
 			outline: 'none',
 			padding: 0,
 			width: '100%',
@@ -92,27 +83,15 @@ const defaultOptions = {
 			color: '#808080',
 			fontSize: 16,
 			fontWeight: 600,
-			margin: '0 0 0 8px',
+			margin: '0 0 0 12px',
 		}),
 		valueContainer: styles => ({
 			...styles,
 			display: 'flex',
 			flex: 'initial',
-			flexWrap: 'nowrap',
-			height: 46,
 			overflow: 'auto',
-			padding: '5px 0 5px 5px',
+			padding: 2,
 			width: 'calc(100% - 66px)',
-			'::-webkit-scrollbar': {
-				height: 4,
-			},
-			'::-webkit-scrollbar-track': {
-				backgroundColor: 'transparent',
-			},
-			'::-webkit-scrollbar-thumb': {
-				backgroundColor: '#0000ff',
-				borderRadius: 2,
-			},
 		}),
 		menu: styles => ({
 			...styles,
