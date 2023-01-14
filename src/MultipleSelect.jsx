@@ -1,7 +1,6 @@
-import { array, func, shape, string } from 'prop-types';
-import React from 'react';
-import ReactSelect from 'react-select';
-import styled from 'styled-components';
+import { array, func, shape, string } from "prop-types";
+import ReactSelect, { components } from "react-select";
+import styled, { keyframes } from "styled-components";
 // active color #0000ff
 // multiValue color rgb(239, 240, 243)
 // placeholder color #808080
@@ -49,149 +48,168 @@ const MultiValue = ({ data: { label }, removeProps: { onClick } }) => (
 	</StyledMultiValue>
 );
 MultiValue.defaultProps = {
-	data: { label: '' },
+	data: { label: "" },
 };
 MultiValue.propTypes = {
 	data: shape({ label: string }),
 	removeProps: shape({ onClick: func }),
 };
+const animation = keyframes`
+	0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+const StyledMenu = styled.div`
+	& .react-select-menu {
+		animation: ${animation} 0.3s ease-in-out;
+		background-color: #ffffff;
+		border-radius: 8px;
+		border: none;
+		box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+		margin: 0;
+		overflow: hidden;
+		padding: 0;
+	}
+`;
+const Menu = props => (
+	<StyledMenu>
+		<components.Menu {...props} className="react-select-menu">
+			{props?.children}
+		</components.Menu>
+	</StyledMenu>
+);
 const IndicatorSeparator = () => null;
 const defaultOptions = {
 	isMulti: true,
 	isSearchable: false,
 	maxMenuHeight: 240,
-	menuPlacement: 'auto',
+	menuPlacement: "auto",
 	styles: {
 		control: styles => ({
 			...styles,
-			backgroundColor: '#ffffff',
-			border: '1px solid #e2e4ea',
+			backgroundColor: "#ffffff",
+			border: "1px solid #e2e4ea",
 			borderRadius: 8,
-			boxShadow: 'none',
-			color: '#000000',
-			cursor: 'pointer',
+			boxShadow: "none",
+			color: "#000000",
+			cursor: "pointer",
 			minHeight: 48,
-			outline: 'none',
+			outline: "none",
 			padding: 0,
-			width: '100%',
-			':hover': {
-				border: '1px solid #e2e4ea',
+			width: "100%",
+			":hover": {
+				border: "1px solid #e2e4ea",
 			},
 		}),
 		placeholder: styles => ({
 			...styles,
-			color: '#808080',
+			color: "#808080",
 			fontSize: 16,
 			fontWeight: 600,
-			margin: '0 0 0 12px',
+			margin: "0 0 0 12px",
 		}),
 		valueContainer: styles => ({
 			...styles,
-			display: 'flex',
-			flex: 'initial',
-			overflow: 'auto',
+			display: "flex",
+			flex: "initial",
+			overflow: "auto",
 			padding: 2,
-			width: 'calc(100% - 66px)',
-		}),
-		menu: styles => ({
-			...styles,
-			backgroundColor: '#fffff',
-			border: 'none',
-			borderRadius: 8,
-			boxShadow: '0 0 7px rgba(0, 0, 0, 0.1)',
-			margin: 0,
-			overflow: 'hidden',
-			padding: 0,
+			width: "calc(100% - 66px)",
 		}),
 		menuList: styles => ({
 			...styles,
 			padding: 0,
-			'::-webkit-scrollbar': {
+			"::-webkit-scrollbar": {
 				width: 6,
 			},
-			'::-webkit-scrollbar-track': {
-				backgroundColor: 'transparent',
+			"::-webkit-scrollbar-track": {
+				backgroundColor: "transparent",
 			},
-			'::-webkit-scrollbar-thumb': {
-				backgroundColor: '#0000ff',
+			"::-webkit-scrollbar-thumb": {
+				backgroundColor: "#0000ff",
 				borderRadius: 3,
 			},
 		}),
 		option: (styles, { isDisabled }) => ({
 			...styles,
-			backgroundColor: isDisabled ? '#808080' : '#fffff',
-			color: isDisabled ? '#000000' : '#000000',
-			cursor: isDisabled ? 'not-allowed' : 'pointer',
+			backgroundColor: isDisabled ? "#808080" : "#fffff",
+			color: isDisabled ? "#000000" : "#000000",
+			cursor: isDisabled ? "not-allowed" : "pointer",
 			fontSize: 16,
 			fontWeight: 600,
 			height: 48,
-			overflow: 'hidden',
-			padding: '15px 16px',
-			textOverflow: 'ellipsis',
-			whiteSpace: 'nowrap',
-			width: '100%',
-			':hover': {
-				backgroundColor: isDisabled ? '#808080' : '#0000ff',
-				color: isDisabled ? '#000000' : '#ffffff',
+			overflow: "hidden",
+			padding: "15px 16px",
+			textOverflow: "ellipsis",
+			whiteSpace: "nowrap",
+			width: "100%",
+			":hover": {
+				backgroundColor: isDisabled ? "#808080" : "#0000ff",
+				color: isDisabled ? "#000000" : "#ffffff",
 			},
 		}),
 		noOptionsMessage: styles => ({
 			...styles,
-			color: '#000000',
-			cursor: 'not-allowed',
+			color: "#000000",
+			cursor: "not-allowed",
 			fontSize: 15,
 			fontWeight: 600,
 			height: 48,
-			padding: '15px 16px',
-			textAlign: 'left',
-			width: '100%',
+			padding: "15px 16px",
+			textAlign: "left",
+			width: "100%",
 		}),
 		indicatorsContainer: styles => ({
 			...styles,
-			justifyContent: 'flex-end',
-			padding: '0 8px',
+			justifyContent: "flex-end",
+			padding: "0 8px",
 			width: 66,
 		}),
 		clearIndicator: styles => ({
 			...styles,
-			alignItems: 'center',
-			backgroundColor: 'rgba(255, 0, 0, 0.7)',
+			alignItems: "center",
+			backgroundColor: "rgba(255, 0, 0, 0.7)",
 			borderRadius: 11,
-			color: '#ffffff',
-			display: 'flex',
+			color: "#ffffff",
+			display: "flex",
 			height: 22,
-			justifyContent: 'center',
-			margin: '0 6px 0 0',
+			justifyContent: "center",
+			margin: "0 6px 0 0",
 			padding: 0,
 			width: 22,
 			svg: {
 				width: 15,
 			},
-			':hover': {
-				backgroundColor: 'rgb(255, 0, 0)',
-				color: '#ffffff',
+			":hover": {
+				backgroundColor: "rgb(255, 0, 0)",
+				color: "#ffffff",
 			},
 		}),
 		dropdownIndicator: (styles, { selectProps: { menuIsOpen } }) => ({
 			...styles,
-			alignItems: 'center',
-			backgroundColor: '#0000ff',
+			alignItems: "center",
+			backgroundColor: "#0000ff",
 			borderRadius: 11,
-			color: '#ffffff',
-			display: 'flex',
+			color: "#ffffff",
+			display: "flex",
 			height: 22,
-			justifyContent: 'center',
+			justifyContent: "center",
 			margin: 0,
 			padding: 0,
-			transform: `rotate(${menuIsOpen ? '180deg' : 0})`,
-			transformOrigin: 'center',
-			transition: '0.4s transform',
+			transform: `rotate(${menuIsOpen ? "180deg" : 0})`,
+			transformOrigin: "center",
+			transition: "0.4s transform",
 			width: 22,
 			svg: {
 				width: 16,
 			},
-			':hover': {
-				color: '#ffffff',
+			":hover": {
+				color: "#ffffff",
 			},
 		}),
 	},
@@ -200,13 +218,13 @@ const MultipleSelect = props => (
 	<ReactSelect
 		{...props}
 		{...defaultOptions}
-		components={{ IndicatorSeparator, MultiValue }}
+		components={{ IndicatorSeparator, MultiValue, Menu }}
 	/>
 );
 MultipleSelect.defaultProps = {
-	noOptionsMessage: () => 'No options',
+	noOptionsMessage: () => "No options",
 	options: [],
-	placeholder: 'Select options',
+	placeholder: "Select options",
 	value: [],
 };
 MultipleSelect.propTypes = {
