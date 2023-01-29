@@ -1,12 +1,12 @@
 import { array, func, shape, string } from "prop-types";
 import ReactSelect, { components } from "react-select";
 import styled, { keyframes } from "styled-components";
-// active color #0000ff
+// active color rgb(0, 0, 255)
 // multiValue color rgb(239, 240, 243)
-// placeholder color #808080
-// remove color #ff0000
-// text color #000000
-// white color #ffffff
+// placeholder color rgb(105, 111, 133)
+// remove color rgb(255, 0, 0)
+// text color rgb(37, 42, 59)
+// white color rgb(255, 255, 255)
 const StyledMultiValue = styled.div`
 	align-items: center;
 	background-color: rgb(239, 240, 243);
@@ -41,7 +41,12 @@ const MultiValue = ({ data: { label }, removeProps: { onClick } }) => (
 	<StyledMultiValue>
 		<div className="label">{label}</div>
 		<div className="remove" onClick={onClick}>
-			<svg fill="#ffffff" height="14" width="14" viewBox="0 0 20 20">
+			<svg
+				fill="rgb(255, 255, 255)"
+				height="14"
+				viewBox="0 0 20 20"
+				width="14"
+			>
 				<path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"></path>
 			</svg>
 		</div>
@@ -56,8 +61,8 @@ MultiValue.propTypes = {
 };
 const animation = keyframes`
 	0% {
-    opacity: 0;
-    transform: scale(0.8);
+    opacity: 0.1;
+    transform: scale(0.6);
   }
   100% {
     opacity: 1;
@@ -66,14 +71,15 @@ const animation = keyframes`
 `;
 const StyledMenu = styled.div`
 	& .react-select-menu {
-		animation: ${animation} 0.3s ease-in-out;
-		background-color: #ffffff;
+		animation: ${animation} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		background-color: rgb(255, 255, 255);
 		border-radius: 8px;
 		border: none;
 		box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 		margin: 0;
 		overflow: hidden;
 		padding: 0;
+		transform-origin: top;
 	}
 `;
 const Menu = props => (
@@ -92,23 +98,23 @@ const defaultOptions = {
 	styles: {
 		control: styles => ({
 			...styles,
-			backgroundColor: "#ffffff",
-			border: "1px solid #e2e4ea",
+			backgroundColor: "rgb(255, 255, 255)",
+			border: "1px solid rgb(226, 228, 234)",
 			borderRadius: 8,
 			boxShadow: "none",
-			color: "#000000",
+			color: "rgb(37, 42, 59)",
 			cursor: "pointer",
 			minHeight: 48,
 			outline: "none",
 			padding: 0,
 			width: "100%",
 			":hover": {
-				border: "1px solid #e2e4ea",
+				border: "1px solid rgb(226, 228, 234)",
 			},
 		}),
 		placeholder: styles => ({
 			...styles,
-			color: "#808080",
+			color: "rgb(105, 111, 133)",
 			fontSize: 16,
 			fontWeight: 600,
 			margin: "0 0 0 12px",
@@ -131,14 +137,26 @@ const defaultOptions = {
 				backgroundColor: "transparent",
 			},
 			"::-webkit-scrollbar-thumb": {
-				backgroundColor: "#0000ff",
+				backgroundColor: "rgb(0, 0, 255)",
 				borderRadius: 3,
 			},
 		}),
-		option: (styles, { isDisabled }) => ({
+		option: (styles, { isDisabled, isSelected, isFocused }) => ({
 			...styles,
-			backgroundColor: isDisabled ? "#808080" : "#fffff",
-			color: isDisabled ? "#000000" : "#000000",
+			backgroundColor: isDisabled
+				? "rgb(247, 248, 252)"
+				: isSelected
+				? "rgb(0, 0, 255)"
+				: isFocused
+				? "skyblue"
+				: "rgb(255, 255, 255)",
+			color: isDisabled
+				? "rgb(105, 111, 133)"
+				: isSelected
+				? "rgb(255, 255, 255)"
+				: isFocused
+				? "rgb(37, 42, 59)"
+				: "rgb(37, 42, 59)",
 			cursor: isDisabled ? "not-allowed" : "pointer",
 			fontSize: 16,
 			fontWeight: 600,
@@ -149,13 +167,15 @@ const defaultOptions = {
 			whiteSpace: "nowrap",
 			width: "100%",
 			":hover": {
-				backgroundColor: isDisabled ? "#808080" : "#0000ff",
-				color: isDisabled ? "#000000" : "#ffffff",
+				backgroundColor: isDisabled
+					? "rgb(128, 128, 128)"
+					: "rgb(0, 0, 255)",
+				color: isDisabled ? "rgb(37, 42, 59)" : "rgb(255, 255, 255)",
 			},
 		}),
 		noOptionsMessage: styles => ({
 			...styles,
-			color: "#000000",
+			color: "rgb(37, 42, 59)",
 			cursor: "not-allowed",
 			fontSize: 15,
 			fontWeight: 600,
@@ -175,7 +195,7 @@ const defaultOptions = {
 			alignItems: "center",
 			backgroundColor: "rgba(255, 0, 0, 0.7)",
 			borderRadius: 11,
-			color: "#ffffff",
+			color: "rgb(255, 255, 255)",
 			display: "flex",
 			height: 22,
 			justifyContent: "center",
@@ -187,15 +207,15 @@ const defaultOptions = {
 			},
 			":hover": {
 				backgroundColor: "rgb(255, 0, 0)",
-				color: "#ffffff",
+				color: "rgb(255, 255, 255)",
 			},
 		}),
 		dropdownIndicator: (styles, { selectProps: { menuIsOpen } }) => ({
 			...styles,
 			alignItems: "center",
-			backgroundColor: "#0000ff",
+			backgroundColor: "rgb(0, 0, 255)",
 			borderRadius: 11,
-			color: "#ffffff",
+			color: "rgb(255, 255, 255)",
 			display: "flex",
 			height: 22,
 			justifyContent: "center",
@@ -209,7 +229,7 @@ const defaultOptions = {
 				width: 16,
 			},
 			":hover": {
-				color: "#ffffff",
+				color: "rgb(255, 255, 255)",
 			},
 		}),
 	},

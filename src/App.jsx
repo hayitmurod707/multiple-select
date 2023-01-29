@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import MultipleSelect from "./MultipleSelect";
 const App = () => {
 	const [options] = useState([
@@ -10,9 +10,21 @@ const App = () => {
 	]);
 	const [value, setValue] = useState([]);
 	return (
-		<div style={{ width: "350px" }}>
-			<MultipleSelect onChange={setValue} options={options} value={value} />
-		</div>
+		<Fragment>
+			<h1>Multiple select component with react-select</h1>
+			<h4>
+				<a href="https://www.github.com/hayitmurod707/multiple-select">
+					Github
+				</a>
+			</h4>
+			<div style={{ width: "400px" }}>
+				<MultipleSelect
+					onChange={setValue}
+					options={options}
+					value={value}
+				/>
+			</div>
+		</Fragment>
 	);
 };
 export default App;
