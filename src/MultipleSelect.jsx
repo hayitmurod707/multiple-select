@@ -167,10 +167,8 @@ const defaultOptions = {
 			whiteSpace: "nowrap",
 			width: "100%",
 			":hover": {
-				backgroundColor: isDisabled
-					? "rgb(128, 128, 128)"
-					: "rgb(0, 0, 255)",
-				color: isDisabled ? "rgb(37, 42, 59)" : "rgb(255, 255, 255)",
+				backgroundColor: isDisabled ? "rgb(128, 128, 128)" : "skyblue",
+				color: "rgb(37, 42, 59)",
 			},
 		}),
 		noOptionsMessage: styles => ({
