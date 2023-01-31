@@ -1,12 +1,12 @@
 import { array, func, shape, string } from "prop-types";
 import ReactSelect, { components } from "react-select";
 import styled, { keyframes } from "styled-components";
-// active color rgb(0, 0, 255)
-// multiValue color rgb(239, 240, 243)
-// placeholder color rgb(105, 111, 133)
-// remove color rgb(255, 0, 0)
-// text color rgb(37, 42, 59)
-// white color rgb(255, 255, 255)
+// active color rgb(0, 0, 255);
+// multiValue color rgb(239, 240, 243);
+// placeholder color rgb(105, 111, 133);
+// remove color rgb(255, 0, 0);
+// text color rgb(37, 42, 59);
+// white color rgb(255, 255, 255);
 const StyledMultiValue = styled.div`
 	align-items: center;
 	background-color: rgb(239, 240, 243);
