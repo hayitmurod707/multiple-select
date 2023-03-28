@@ -1,21 +1,21 @@
 @font-face {
-	font-display: swap;
-	font-family: "Gilroy";
-	font-style: normal;
-	font-weight: 600;
-	src: url("./Gilroy-SemiBold.woff2");
+   font-display: swap;
+   font-family: 'Gilroy';
+   font-style: normal;
+   font-weight: 600;
+   src: url('./Gilroy-SemiBold.woff2');
 }
 body {
-	align-items: center;
-	display: flex;
-	font-family: "Gilroy", sans-serif;
-	height: 100vh;
-	justify-content: center;
-	margin: 0;
+   align-items: center;
+   display: flex;
+   font-family: 'Gilroy', sans-serif;
+   height: 100vh;
+   justify-content: center;
+   margin: 0;
 }
 #root {
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
