@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/multiple-select/static/css/main.d864e0d2.css",
-    "main.js": "/multiple-select/static/js/main.016c5f29.js",
+    "main.js": "/multiple-select/static/js/main.f3b4224f.js",
     "static/media/Gilroy-SemiBold.woff2": "/multiple-select/static/media/Gilroy-SemiBold.63a4be92e837b8fdfc8d.woff2",
     "index.html": "/multiple-select/index.html",
     "main.d864e0d2.css.map": "/multiple-select/static/css/main.d864e0d2.css.map",
-    "main.016c5f29.js.map": "/multiple-select/static/js/main.016c5f29.js.map"
+    "main.f3b4224f.js.map": "/multiple-select/static/js/main.f3b4224f.js.map"
   },
   "entrypoints": [
     "static/css/main.d864e0d2.css",
-    "static/js/main.016c5f29.js"
+    "static/js/main.f3b4224f.js"
   ]
 }
