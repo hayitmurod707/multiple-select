@@ -13,8 +13,10 @@ const App = () => {
    const [value, setValue] = useState([]);
    return (
       <Fragment>
-         <h1>Multiple select component with react-select</h1>
-         <h4>
+         <h1 style={{ textAlign: 'center' }}>
+            Multiple select component with react-select
+         </h1>
+         <h4 style={{ textAlign: 'center' }}>
             <a href='https://www.github.com/hayitmurod707/multiple-select'>
                Github
             </a>

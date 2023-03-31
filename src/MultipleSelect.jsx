@@ -1,4 +1,4 @@
-import { array, func, string } from 'prop-types';
+import { array, bool, func, string } from 'prop-types';
 import ReactSelect, { components } from 'react-select';
 import styled, { keyframes } from 'styled-components';
 // active color #5254f1
@@ -88,7 +88,6 @@ const defaultOptions = {
    isMulti: true,
    isSearchable: false,
    maxMenuHeight: 230,
-   menuPlacement: 'auto',
    styles: {
       control: styles => ({
          ...styles,
@@ -141,7 +140,7 @@ const defaultOptions = {
          backgroundColor: isDisabled
             ? 'rgb(247, 248, 252)'
             : isFocused
-            ? 'skyblue'
+            ? 'rgba(82, 85, 241, 0.1)'
             : 'rgb(255, 255, 255)',
          borderRadius: 8,
          color: isDisabled
@@ -159,7 +158,9 @@ const defaultOptions = {
          whiteSpace: 'nowrap',
          width: '100%',
          ':hover': {
-            backgroundColor: isDisabled ? 'rgb(128, 128, 128)' : 'skyblue',
+            backgroundColor: isDisabled
+               ? 'rgb(128, 128, 128)'
+               : 'rgba(82, 85, 241, 0.1)',
             color: 'rgb(37, 42, 59)',
          },
       }),
@@ -226,12 +227,14 @@ const defaultOptions = {
 };
 const MultipleSelect = props => <ReactSelect {...defaultOptions} {...props} />;
 MultipleSelect.defaultProps = {
+   isDisabled: false,
    noOptionsMessage: () => 'No options',
    options: [],
    placeholder: 'Select options',
    value: [],
 };
 MultipleSelect.propTypes = {
+   isDisabled: bool,
    noOptionsMessage: func,
    onChange: func.isRequired,
    options: array,
